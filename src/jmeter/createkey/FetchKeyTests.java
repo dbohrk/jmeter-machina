@@ -54,7 +54,7 @@ public class FetchKeyTests extends AbstractJavaSamplerClient {
  
  
         // get a  single key
-        GetKeysResponse.Key key = null;
+        String cid = null;
         try {
             cid = agent.getKey(keyId).getConversationId();
             

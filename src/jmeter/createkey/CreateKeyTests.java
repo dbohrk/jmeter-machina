@@ -13,19 +13,46 @@ import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
  
 public class CreateKeyTests extends AbstractJavaSamplerClient {
+
+	private static String persistorType;
+	private static String persistorPath;
+	private static String keyId;
+    Agent agent = new Agent();
+
     @Override
     public void setupTest(JavaSamplerContext context){
         super.setupTest(context);
-    }
- 
- 
-    @Override
-    public Arguments getDefaultParameters() {
-        Arguments defaultParameters = new Arguments();
-        defaultParameters.addArgument("sep_location", "/Users/sam/Downloads/perf-sep.txt");
-        return defaultParameters;
-    }
- 
+        persistorPath = context.getJMeterProperties().getProperty("sep_location");
+        keyId = context.getJMeterProperties().getProperty("keyId");
+        persistorType = context.getJMeterProperties().getProperty("persistorType");
+        
+        try {
+        	if (persistorType == "plaintext") {
+            	DeviceProfilePersistorPlainText persistor = new DeviceProfilePersistorPlainText();
+            	persistor.setFilePath(persistorPath);
+                agent.initialize(persistor);
+                System.out.println("Java SDK Agent initialized with PlainText SEP");
+        	}
+        	else if (persistorType == "password") {
+            	DeviceProfilePersistorPassword persistor = new DeviceProfilePersistorPassword();
+            	persistor.setFilePath(persistorPath);
+                agent.initialize(persistor);
+                System.out.println("Java SDK Agent initialized with Password SEP");
+        	}
+        	else {
+        		System.out.println("Unable to find Persistor Type, exiting...");
+        		System.exit(1);
+        	}
+
+            CreateKeysResponse.Key key = null;
+            key = agent.createKey().getKeys().get(0);
+
+        } catch(IonicException e) {
+            System.out.println("Ionic init exception");
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+    } 
     
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
@@ -70,16 +97,15 @@ public class CreateKeyTests extends AbstractJavaSamplerClient {
             return result;
         }
  
- 
         // Stop the timer!
         result.sampleEnd();
         result.setSuccessful(success);
         return result;
 }
- 
- 
+
     @Override
-    public void teardownTest(JavaSamplerContext context){
+    public void teardownTest(JavaSamplerContext context) {
         // TODO Auto-generated method stub
     }
+
 }
