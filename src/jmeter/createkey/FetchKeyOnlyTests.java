@@ -12,36 +12,38 @@ public class FetchKeyOnlyTests extends AbstractJavaSamplerClient {
 	
 	private static String persistorPath;
 	private static String keyId;
-    Agent agent = new Agent();
 
     @Override
     public void setupTest(JavaSamplerContext context){
         super.setupTest(context);
+    }
+    
+    @Override
+    public SampleResult runTest(JavaSamplerContext context) {
+        Agent agent = new Agent();
+        SampleResult result = new SampleResult();
+        String cid = null;
         persistorPath = context.getJMeterProperties().getProperty("sep_location");
         keyId = context.getJMeterProperties().getProperty("keyId");
+        
         try {
         	DeviceProfilePersistorPlainText persistor = new DeviceProfilePersistorPlainText();
         	persistor.setFilePath(persistorPath);
             agent.initialize(persistor);
-            System.out.println("Java SDK Agent initialized");
+            //System.out.println("Java SDK Agent initialized");
         } catch(IonicException e) {
             System.out.println("Ionic init exception");
             System.out.println(e.getMessage());
             System.exit(1);
         }
-    } 
-    
-    @Override
-    public SampleResult runTest(JavaSamplerContext context) {
-        SampleResult result = new SampleResult();
- 
+        
         // Start the timer!
         result.sampleStart();
  
         // get a single key
-        String cid = null;
         try {
             cid = agent.getKey(keyId).getConversationId();
+            //System.out.println(cid);
             
         } catch(IonicException e) {
             result.sampleEnd(); // Stop timer
