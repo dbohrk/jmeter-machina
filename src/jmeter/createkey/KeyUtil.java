@@ -145,115 +145,116 @@ public class KeyUtil {
     }
     //send the create
     CreateKeysResponse createKeysResponse = agent.createKeys(request);
+
     //Assert.assertEquals(HttpURLConnection.HTTP_CREATED, createKeysResponse.getHttpResponseCode());
     ArrayList<CreateKeysResponse.Key> createKeysList = (ArrayList<CreateKeysResponse.Key> )createKeysResponse.getKeys();
     //Assert.assertEquals(createAttribsList.size(),createKeysList.size());
 
-    // check createresponse against original requested maps
-    for (CreateAttributeMaps mattrAndCattr : createAttribsList) {
-      Map<String, List<String>> mutableAttrsMap = mattrAndCattr.getMattrs();
-      KeyAttributesMap keyAttrsMap = mattrAndCattr.getCattrs();
-
-      Map<String, List<String>> tempMutableAttrsMap;
-      KeyAttributesMap tempKeyAttrsMap;
-
-      if (mutableAttrsMap != null) {
-        tempMutableAttrsMap = mutableAttrsMap;
-      } else {
-        tempMutableAttrsMap = Collections.<String, List<String>>emptyMap(); //empty, size 0
-      }
-      if (keyAttrsMap != null) {
-        tempKeyAttrsMap = keyAttrsMap;
-      } else {
-        tempKeyAttrsMap = new KeyAttributesMap(); //empty, size 0
-      }
-
-      List<String> matchedIds = new ArrayList<String>();
-      CreateKeysResponse.Key compareCreateKey = null;
-      for (CreateKeysResponse.Key thisKey : createKeysList) {
-        Map<String, List<String>> thisMattr = thisKey.getMutableAttributesMap();
-        KeyAttributesMap thisCattr = thisKey.getAttributesMap();
-
-        if ((thisMattr.equals(tempMutableAttrsMap)) &&
-            (thisCattr.equals(tempKeyAttrsMap)) &&
-            (!matchedIds.contains(thisKey.getId()))) //not already found
-        {
-          matchedIds.add(thisKey.getId());
-          compareCreateKey = thisKey;
-          break;
-        }
-      }
-      //Assert.assertNotNull(compareCreateKey);
-
-      KeyAttributesMap cattrs = compareCreateKey.getAttributesMap();
-      KeyAttributesMap mattrs = compareCreateKey.getMutableAttributesMap();
-      if (keyAttrsMap != null) {
-        //Assert.assertEquals(keyAttrsMap.size(), cattrs.size());
-        //Assert.assertTrue(cattrs.equals(keyAttrsMap));
-      } else {
-        //Assert.assertEquals(0, cattrs.size());
-      }
-      if (mutableAttrsMap != null) {
-
-        //Assert.assertEquals(mutableAttrsMap.size(), mattrs.size());
-        //Assert.assertTrue(mattrs.equals(mutableAttrsMap));
-      } else {
-        //Assert.assertEquals(0, mattrs.size());
-      }
-    } //check createresponse against original requested maps
-
-    // Check that Got Keys == Created Keys
-    // double-check that creation worked on server
-    List<String> keyIdsList = new ArrayList<String>();
-    final GetKeysRequest getKeysRequest = new GetKeysRequest();
-    for (CreateKeysResponse.Key thisKey : createKeysList) {
-      String keyId = thisKey.getId();
-      getKeysRequest.add(keyId);
-      keyIdsList.add(keyId);
-    }
-
-    final GetKeysResponse getKeysResponse = agent.getKeys(getKeysRequest);
-    List<GetKeysResponse.Key> getKeysList = getKeysResponse.getKeys();
-    //Assert.assertEquals("Requested #Of keys should match returned #of keys",createKeysList.size(), getKeysList.size());
-
-    for (GetKeysResponse.Key gotKey : getKeysList) {
-      //Assert.assertTrue(keyIdsList.contains(gotKey.getId()));
-
-      CreateKeysResponse.Key compareCreateKey = null;
-      for (CreateKeysResponse.Key thisKey : createKeysList) {
-        if (thisKey.getId().equals(gotKey.getId())){
-          compareCreateKey = thisKey;
-          break;
-        }
-      }
-      //Assert.assertNotNull(compareCreateKey); //did we find a match?
-
-      final KeyAttributesMap createKeyCattrs = compareCreateKey.getAttributesMap();
-      final KeyAttributesMap createKeyMattrs = compareCreateKey.getMutableAttributesMap();
-      //assert matching cattrs
-      final KeyAttributesMap gotKeyCattrs = gotKey.getAttributesMap();
-      if (createKeyCattrs != null) {
-        //Assert.assertNotNull(gotKeyCattrs);
-        if(gotKeyCattrs.containsKey("ionic-creation-timestamp")){ //Remove key-value added on C-Attr requests.
-          gotKeyCattrs.remove("ionic-creation-timestamp");
-        }
-        //Assert.assertEquals(createKeyCattrs.size(), gotKeyCattrs.size());
-        //Assert.assertTrue(gotKeyCattrs.equals(createKeyCattrs));
-        //TODO Assert Matching CSIG
-      } else {
-        //Assert.assertEquals(0, gotKeyCattrs.size());
-      }
-      //assert matching mattrs
-      final KeyAttributesMap gotKeyMattrs = gotKey.getMutableAttributesMap();
-      if (createKeyMattrs != null) {
-        //Assert.assertNotNull(gotKeyMattrs);
-        //Assert.assertEquals(createKeyMattrs.size(), gotKeyMattrs.size());
-        //Assert.assertTrue(gotKeyMattrs.equals(createKeyMattrs));
-        //TODO Assert Matching MSIG
-      } else {
-        //Assert.assertEquals(0, gotKeyMattrs.size());
-      }
-    } //check each key in getKeysList against createKeysList
+//    // check createresponse against original requested maps
+//    for (CreateAttributeMaps mattrAndCattr : createAttribsList) {
+//      Map<String, List<String>> mutableAttrsMap = mattrAndCattr.getMattrs();
+//      KeyAttributesMap keyAttrsMap = mattrAndCattr.getCattrs();
+//
+//      Map<String, List<String>> tempMutableAttrsMap;
+//      KeyAttributesMap tempKeyAttrsMap;
+//
+//      if (mutableAttrsMap != null) {
+//        tempMutableAttrsMap = mutableAttrsMap;
+//      } else {
+//        tempMutableAttrsMap = Collections.<String, List<String>>emptyMap(); //empty, size 0
+//      }
+//      if (keyAttrsMap != null) {
+//        tempKeyAttrsMap = keyAttrsMap;
+//      } else {
+//        tempKeyAttrsMap = new KeyAttributesMap(); //empty, size 0
+//      }
+//
+//      List<String> matchedIds = new ArrayList<String>();
+//      CreateKeysResponse.Key compareCreateKey = null;
+//      for (CreateKeysResponse.Key thisKey : createKeysList) {
+//        Map<String, List<String>> thisMattr = thisKey.getMutableAttributesMap();
+//        KeyAttributesMap thisCattr = thisKey.getAttributesMap();
+//
+//        if ((thisMattr.equals(tempMutableAttrsMap)) &&
+//            (thisCattr.equals(tempKeyAttrsMap)) &&
+//            (!matchedIds.contains(thisKey.getId()))) //not already found
+//        {
+//          matchedIds.add(thisKey.getId());
+//          compareCreateKey = thisKey;
+//          break;
+//        }
+//      }
+//      //Assert.assertNotNull(compareCreateKey);
+//
+//      KeyAttributesMap cattrs = compareCreateKey.getAttributesMap();
+//      KeyAttributesMap mattrs = compareCreateKey.getMutableAttributesMap();
+//      if (keyAttrsMap != null) {
+//        //Assert.assertEquals(keyAttrsMap.size(), cattrs.size());
+//        //Assert.assertTrue(cattrs.equals(keyAttrsMap));
+//      } else {
+//        //Assert.assertEquals(0, cattrs.size());
+//      }
+//      if (mutableAttrsMap != null) {
+//
+//        //Assert.assertEquals(mutableAttrsMap.size(), mattrs.size());
+//        //Assert.assertTrue(mattrs.equals(mutableAttrsMap));
+//      } else {
+//        //Assert.assertEquals(0, mattrs.size());
+//      }
+//    } //check createresponse against original requested maps
+//
+//    // Check that Got Keys == Created Keys
+//    // double-check that creation worked on server
+//    List<String> keyIdsList = new ArrayList<String>();
+//    final GetKeysRequest getKeysRequest = new GetKeysRequest();
+//    for (CreateKeysResponse.Key thisKey : createKeysList) {
+//      String keyId = thisKey.getId();
+//      getKeysRequest.add(keyId);
+//      keyIdsList.add(keyId);
+//    }
+//
+//    final GetKeysResponse getKeysResponse = agent.getKeys(getKeysRequest);
+//    List<GetKeysResponse.Key> getKeysList = getKeysResponse.getKeys();
+//    //Assert.assertEquals("Requested #Of keys should match returned #of keys",createKeysList.size(), getKeysList.size());
+//
+//    for (GetKeysResponse.Key gotKey : getKeysList) {
+//      //Assert.assertTrue(keyIdsList.contains(gotKey.getId()));
+//
+//      CreateKeysResponse.Key compareCreateKey = null;
+//      for (CreateKeysResponse.Key thisKey : createKeysList) {
+//        if (thisKey.getId().equals(gotKey.getId())){
+//          compareCreateKey = thisKey;
+//          break;
+//        }
+//      }
+//      //Assert.assertNotNull(compareCreateKey); //did we find a match?
+//
+//      final KeyAttributesMap createKeyCattrs = compareCreateKey.getAttributesMap();
+//      final KeyAttributesMap createKeyMattrs = compareCreateKey.getMutableAttributesMap();
+//      //assert matching cattrs
+//      final KeyAttributesMap gotKeyCattrs = gotKey.getAttributesMap();
+//      if (createKeyCattrs != null) {
+//        //Assert.assertNotNull(gotKeyCattrs);
+//        if(gotKeyCattrs.containsKey("ionic-creation-timestamp")){ //Remove key-value added on C-Attr requests.
+//          gotKeyCattrs.remove("ionic-creation-timestamp");
+//        }
+//        //Assert.assertEquals(createKeyCattrs.size(), gotKeyCattrs.size());
+//        //Assert.assertTrue(gotKeyCattrs.equals(createKeyCattrs));
+//        //TODO Assert Matching CSIG
+//      } else {
+//        //Assert.assertEquals(0, gotKeyCattrs.size());
+//      }
+//      //assert matching mattrs
+//      final KeyAttributesMap gotKeyMattrs = gotKey.getMutableAttributesMap();
+//      if (createKeyMattrs != null) {
+//        //Assert.assertNotNull(gotKeyMattrs);
+//        //Assert.assertEquals(createKeyMattrs.size(), gotKeyMattrs.size());
+//        //Assert.assertTrue(gotKeyMattrs.equals(createKeyMattrs));
+//        //TODO Assert Matching MSIG
+//      } else {
+//        //Assert.assertEquals(0, gotKeyMattrs.size());
+//      }
+//    } //check each key in getKeysList against createKeysList
     /*
      * TODO something like:
      * Assert.assertEquals(

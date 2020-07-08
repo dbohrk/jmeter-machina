@@ -23,7 +23,7 @@ public class FetchKeyOnlyTests extends AbstractJavaSamplerClient {
         Agent agent = new Agent();
         SampleResult result = new SampleResult();
         String cid = null;
-        persistorPath = context.getJMeterProperties().getProperty("sep_location");
+        String persistorPath = context.getJMeterVariables().get("sep_location");
         keyId = context.getJMeterProperties().getProperty("keyId");
         
         try {

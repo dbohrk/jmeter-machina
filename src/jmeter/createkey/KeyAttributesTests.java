@@ -9,6 +9,8 @@ import com.ionic.sdk.agent.request.createkey.CreateKeysResponse;
 import com.ionic.sdk.error.IonicException;
 import javax.xml.bind.DatatypeConverter;
 import jmeter.createkey.KeyUtil;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
@@ -32,7 +34,7 @@ public class KeyAttributesTests extends AbstractJavaSamplerClient {
         Agent agent = new Agent();
         SampleResult result = new SampleResult();
         String persistorPath = context.getJMeterVariables().get("sep_location");
- 
+        String keyId = null;
         try {
         	DeviceProfilePersistorPlainText persistor = new DeviceProfilePersistorPlainText();
         	persistor.setFilePath(persistorPath);
@@ -46,9 +48,6 @@ public class KeyAttributesTests extends AbstractJavaSamplerClient {
         
         //CreateKeysResponse.Key key = null;
         
-        // Start the timer!
-        result.sampleStart();
- 
         // create single key
         try {
             //String cid = agent.createKey().getConversationId();
@@ -56,19 +55,33 @@ public class KeyAttributesTests extends AbstractJavaSamplerClient {
         	final KeyAttributesMap keyAttributesQ3 = new KeyAttributesMap();
         	final KeyAttributesMap keyAttributesQ4 = new KeyAttributesMap();
         	
-        	String bunchOfAs = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        	String bunchOfDs = "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+        	String bunchOfAs = "a".repeat(254);
+        	String bunchOfDs = "d".repeat(254);
 
-        	keyAttributesQ3.put("classification", Arrays.asList("01" + bunchOfAs, "02" + bunchOfAs, "03" + bunchOfAs,
+        	keyAttributesQ3.put("allowattr1", Arrays.asList("01" + bunchOfAs, "02" + bunchOfAs, "03" + bunchOfAs,
             		"04" + bunchOfAs, "05" + bunchOfAs, "06" + bunchOfAs, "07" + bunchOfAs, "08" + bunchOfAs,
             		 "09" + bunchOfAs, "10" + bunchOfAs, "11" + bunchOfAs, "12" + bunchOfAs, "13" + bunchOfAs,
             		 "14" + bunchOfAs, "15" + bunchOfAs, "16" + bunchOfAs, "17" + bunchOfAs,
-            		 "18" + bunchOfAs, "19" + bunchOfAs, "20" + bunchOfAs));
-        	keyAttributesQ4.put("classification", Arrays.asList("01" + bunchOfDs, "02" + bunchOfDs, "03" + bunchOfDs,
-            		"04" + bunchOfDs, "05" + bunchOfDs, "06" + bunchOfDs, "07" + bunchOfDs, "08" + bunchOfDs,
-            		 "09" + bunchOfDs, "10" + bunchOfDs, "11" + bunchOfDs, "12" + bunchOfDs, "13" + bunchOfDs,
-            		 "14" + bunchOfDs, "15" + bunchOfDs, "16" + bunchOfDs, "17" + bunchOfDs,
-            		 "18" + bunchOfDs, "19" + bunchOfDs, "20" + bunchOfDs));
+            		 "18" + bunchOfAs, "19" + bunchOfAs, "20" + bunchOfAs, "21" + bunchOfAs, "22" + bunchOfAs, "23" + bunchOfAs,
+            	      "24" + bunchOfAs, "25" + bunchOfAs, "26" + bunchOfAs, "27" + bunchOfAs, "28" + bunchOfAs,
+            	      "29" + bunchOfAs, "30" + bunchOfAs, "31" + bunchOfAs, "32" + bunchOfAs, "33" + bunchOfAs,
+            	      "34" + bunchOfAs, "35" + bunchOfAs, "36" + bunchOfAs, "37" + bunchOfAs,
+            	      "38" + bunchOfAs, "39" + bunchOfAs, "40" + bunchOfAs, "41" + bunchOfAs, "42" + bunchOfAs, "43" + bunchOfAs,
+            	     "44" + bunchOfAs, "45" + bunchOfAs, "46" + bunchOfAs, "47" + bunchOfAs, "48" + bunchOfAs,
+            	    "49" + bunchOfAs, "50" + bunchOfAs, "51" + bunchOfAs, "52" + bunchOfAs, "53" + bunchOfAs,
+            	    "54" + bunchOfAs, "55" + bunchOfAs, "56" + bunchOfAs, "57" + bunchOfAs,
+            	    "58" + bunchOfAs, "59" + bunchOfAs, "60" + bunchOfAs));
+        	keyAttributesQ3.put("allowattr2", Arrays.asList("61" + bunchOfAs, "62" + bunchOfAs, "63" + bunchOfAs,
+        		      "64" + bunchOfAs, "65" + bunchOfAs, "66" + bunchOfAs, "67" + bunchOfAs, "68" + bunchOfAs,
+        		       "69" + bunchOfAs, "70" + bunchOfAs, "71" + bunchOfAs, "72" + bunchOfAs, "73" + bunchOfAs,
+        		       "74" + bunchOfAs, "75" + bunchOfAs, "76" + bunchOfAs, "77" + bunchOfAs,
+        		       "78" + bunchOfAs, "79" + bunchOfAs, "80" + bunchOfAs, "81" + bunchOfAs, "82" + bunchOfAs, "83" + bunchOfAs,
+        		      "84" + bunchOfAs, "85" + bunchOfAs, "86" + bunchOfAs, "87" + bunchOfAs, "88" + bunchOfAs,
+        		     "89" + bunchOfAs, "90" + bunchOfAs, "91" + bunchOfAs, "92" + bunchOfAs, "93" + bunchOfAs,
+        		     "94" + bunchOfAs, "95" + bunchOfAs, "96" + bunchOfAs, "97" + bunchOfAs,
+        		     "98" + bunchOfAs, "99" + bunchOfAs));
+
+
             //keyAttributesQ3.put("classification", Arrays.asList("allowvalue0", "allowvalue1", "allowvalue2"));
             //keyAttributesQ3.put("classification", Arrays.asList("allowvalue0", "allowvalue1", "allowvalue2"));
 
@@ -76,9 +89,13 @@ public class KeyAttributesTests extends AbstractJavaSamplerClient {
             createAttribsList.add(new KeyUtil.CreateAttributeMaps(mutableAttributesQ1, keyAttributesQ3));
             //createAttribsList.add(new KeyUtil.CreateAttributeMaps(mutableAttributesQ1, keyAttributesQ3)); //same empty sets
             //createAttribsList.add(new KeyUtil.CreateAttributeMaps(mutableAttributesQ1, keyAttributesQ3)); //same empty sets
-            final CreateKeysResponse createKeysResponse = KeyUtil.createKeysAndVerify(agent,createAttribsList);
-            final Collection<CreateKeysResponse.Key> createKeysResponseKeys = createKeysResponse.getKeys();
             
+            // Start the timer!
+            result.sampleStart();
+     
+            final CreateKeysResponse createKeysResponse = KeyUtil.createKeysAndVerify(agent,createAttribsList);
+            //final Collection<CreateKeysResponse.Key> createKeysResponseKeys = createKeysResponse.getKeys();
+            keyId = createKeysResponse.getKeys().get(0).getId();
             //context.getJMeterVariables().put("KeyBytes", DatatypeConverter.printHexBinary(key.getKey()));
             //context.getJMeterVariables().put("FixedAttrs", key.getAttributesSigBase64FromServer());
             //context.getJMeterVariables().put("MutableAttrs", key.getMutableAttributesSigBase64FromServer());
@@ -91,7 +108,7 @@ public class KeyAttributesTests extends AbstractJavaSamplerClient {
  
         // Stop the timer!
         result.sampleEnd();
-        //context.getJMeterVariables().put("keyId", response.getId());
+        context.getJMeterVariables().put("keyId", keyId);
         result.setSuccessful(true);
         return result;
 }
