@@ -56,6 +56,7 @@ public class CreateKeyTests extends AbstractJavaSamplerClient {
         // Stop the timer!
         result.sampleEnd();
         context.getJMeterVariables().put("keyId", key.getId());
+        result.setResponseMessage("KeyID: " + key.getId());
         result.setSuccessful(true);
         return result;
 }

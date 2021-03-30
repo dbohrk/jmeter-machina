@@ -14,7 +14,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/sam/Downloads/jars/ApacheJMeter_core.jar"/>
 	<classpathentry kind="lib" path="/Users/sam/Downloads/jars/ApacheJMeter_java.jar"/>
-	<classpathentry kind="lib" path="/Users/sam/Downloads/jars/ionic-sdk-2.4.0.jar"/>
 	<classpathentry kind="lib" path="/Users/sam/Downloads/jars/jaxb-api-2.3.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
@@ -23,5 +22,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/sam/Downloads/jars/bcprov-jdk15on-162.jar"/>
 	<classpathentry kind="lib" path="/Users/sam/Downloads/jars/javax.json-api-1.1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/sam/Downloads/jars/ionic-sdk-2.9.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

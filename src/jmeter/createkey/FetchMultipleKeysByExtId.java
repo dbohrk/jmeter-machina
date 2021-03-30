@@ -3,16 +3,19 @@ package jmeter.createkey;
  
 import com.ionic.sdk.device.profile.persistor.DeviceProfilePersistorPlainText;
 import com.ionic.sdk.agent.Agent;
-import com.ionic.sdk.agent.request.createkey.CreateKeysResponse;
+import com.ionic.sdk.agent.request.getkey.GetKeysRequest;
 import com.ionic.sdk.agent.request.getkey.GetKeysResponse;
 import com.ionic.sdk.error.IonicException;
-import javax.xml.bind.DatatypeConverter;
-import org.apache.jmeter.config.Arguments;
+import java.util.List;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
  
-public class FetchKeyTests extends AbstractJavaSamplerClient {
+public class FetchMultipleKeysByExtId extends AbstractJavaSamplerClient {
+	
+	private static String persistorPath;
+	private static String extId;
+	
     @Override
     public void setupTest(JavaSamplerContext context){
         super.setupTest(context);
@@ -20,32 +23,42 @@ public class FetchKeyTests extends AbstractJavaSamplerClient {
     
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
-        String persistorPath = context.getJMeterVariables().get("sep_location");
-        String keyId = context.getJMeterVariables().get("keyId");
-
         Agent agent = new Agent();
-        SampleResult result = new SampleResult(); 
+        SampleResult result = new SampleResult();
+        persistorPath = context.getJMeterVariables().get("sep_location");
+        extId = context.getJMeterProperties().getProperty("externalId");
+        //System.out.println("external ID:\n" + extId);
+        //System.out.println("SEP Location:\n" + persistorPath);
 
+        
         try {
         	DeviceProfilePersistorPlainText persistor = new DeviceProfilePersistorPlainText();
         	persistor.setFilePath(persistorPath);
             agent.initialize(persistor);
-            //System.out.println("Agent for Fetch initialized");
+            //System.out.println("Java SDK Agent initialized");
         } catch(IonicException e) {
             System.out.println("Ionic init exception");
             System.out.println(e.getMessage());
             System.exit(1);
         }
         
+        //get multiple keys
+        GetKeysRequest getKeysRequest = new GetKeysRequest();
+        getKeysRequest.addExternalId(extId);;
+        List<GetKeysResponse.Key> keys = null;
+        
         // Start the timer!
         result.sampleStart();
  
-        // get a  single key
-        String cid = null;
+        // get a single key
         try {
-            cid = agent.getKey(keyId).getConversationId();  
-        } 
-        catch(IonicException e) {
+            keys = agent.getKeys(getKeysRequest).getKeys();
+            if (keys.size() == 0) {
+                System.out.println("There were no keys or access was denied to the keys");
+                System.exit(1);
+            }
+            
+        } catch(IonicException e) {
             result.sampleEnd(); // Stop timer
             result.setSuccessful(false);
             result.setResponseMessage( "Get Key Exception: " + e );
@@ -56,10 +69,9 @@ public class FetchKeyTests extends AbstractJavaSamplerClient {
         result.sampleEnd();
         result.setSuccessful(true);
         result.setResponseCodeOK();
-        result.setResponseMessage("Fetching keyID: " + keyId + " Response CID:" + cid);
+        //result.setResponseMessage(extId);
         return result;
 }
- 
  
     @Override
     public void teardownTest(JavaSamplerContext context){
