@@ -4,6 +4,11 @@ target/
 
 # Eclipse Core      
 .project
+.idea/
 
 # JDT-specific (Eclipse Java Development Tools)     
 .classpath
+
+# macOS
+.DS_Store
+jmeter.log
