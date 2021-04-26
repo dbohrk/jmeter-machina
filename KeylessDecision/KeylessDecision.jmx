@@ -30,10 +30,10 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(keylessDecisionUsers,)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(keylessDecisionUsers,0)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,0)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds,)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,0)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -226,10 +226,10 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(addUsersUsers,)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(addUsersUsers,0)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,0)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds,)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,0)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -435,10 +435,10 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(addPoliciesUsers,)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(addPoliciesUsers,0)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,0)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds,)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,0)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -643,10 +643,10 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(addPoliciesUsers,)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(deletePoliciesUsers,0)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,0)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds,)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,0)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
