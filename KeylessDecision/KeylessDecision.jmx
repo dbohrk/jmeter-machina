@@ -33,7 +33,7 @@
         <stringProp name="ThreadGroup.num_threads">${__P(keylessDecisionUsers,)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(rampup,)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds),)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -229,7 +229,7 @@
         <stringProp name="ThreadGroup.num_threads">${__P(addUsersUsers,)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(rampup,)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds),)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -438,7 +438,7 @@
         <stringProp name="ThreadGroup.num_threads">${__P(addPoliciesUsers,)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(rampup,)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds),)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -646,7 +646,7 @@
         <stringProp name="ThreadGroup.num_threads">${__P(addPoliciesUsers,)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(rampup,)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds),)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
