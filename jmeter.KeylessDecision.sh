@@ -1,7 +1,7 @@
 # Keyless Decision
 rm Data/KeylessDecision-without.csv
 rm -rf Reports/KeylessDecision-without/*
-jmeter -n -t KeylessDecision/KeylessDecision.jmx -l Data/KeylessDecision-without.csv -JkeylessDecisionUsers=20 -Jrampup=5 -Jseconds=1800
+jmeter -n -t jmx/KeylessDecision.jmx -l Data/KeylessDecision-without.csv -JkeylessDecisionUsers=20 -Jrampup=5 -Jseconds=1800
 jmeter -g Data/KeylessDecision-without.csv -o Reports/KeylessDecision-without
 # 
 # Keyless Decision with Keyless Policy Decision
