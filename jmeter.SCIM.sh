@@ -8,15 +8,15 @@ jmeterUsers=20
 jmaterRampup=5
 jmeterSeconds=90
 
-# threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "fetchDeviceStatic" "addUsersInGroup" "addUsers" "listUsers" "deleteUsers" "fetchUserDynamic" "fetchUserStatic" \
-#"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "fetchGroupStatic" "updateGroupPutDynamic" "updateGroupPutStatic" \
-#"updateGroupPatchDynamic" "updateGroupPatchStatic" )
+threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "fetchDeviceStatic" "addUsersInGroup" "addUsers" "listUsers" "deleteUsers" "fetchUserDynamic" "fetchUserStatic" \
+	"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "fetchGroupStatic" "updateGroupPutDynamic" "updateGroupPutStatic" \
+	"updateGroupPatchDynamic" "updateGroupPatchStatic" )
 
-threadGroups=( "listScopes" "listDevices" )
+# threadGroups=( "listScopes" "listDevices" )
 
 for threadGroup in "${threadGroups[@]}"
 do
-	echo $threadGroup"Users"
+	echo "***** Thread Group: "$threadGroup" *****"
 
 	rm $dataDirectory/$threadGroup.csv
 	rm -rf $reportsDirectory/$threadGroup/*

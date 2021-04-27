@@ -1,4 +1,6 @@
 jmeter.log
 .DS_Store
-Data
-Reports
+data
+reports
+config
+!config/machinaConfig.csv.template
