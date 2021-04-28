@@ -1,6 +1,12 @@
 jmeter.log
 .DS_Store
+jmeter.log
+temp
 data
 reports
 config
 !config/machinaConfig.csv.template
+!data/.gitkeep
+!reports/.gitkeep
+!config/.gitkeep
+
