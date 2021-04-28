@@ -1,2 +1,2 @@
-﻿serverName,keySpace,bearerToken,tenantID,groupID,deviceID,userID,roleID
-,,Bearer ,,,,,
+serverName	keySpace	bearerToken	tenantID	groupID	deviceID	userID	roleID	markingID
+		Bearer 						

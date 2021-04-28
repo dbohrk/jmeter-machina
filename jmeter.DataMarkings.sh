@@ -2,7 +2,7 @@ baseDirectory="./"
 reportsDirectory="reports"
 dataDirectory="data"
 testPlanDirectory="jmx"
-testPlan="SCIM"
+testPlan="DataMarkings"
 parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
@@ -10,11 +10,7 @@ jmeterUsers=20
 jmaterRampup=5
 jmeterSeconds=1800
 
-#threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "fetchDeviceStatic" "addUsersInGroup" "addUsers" "listUsers" "deleteUsers" "fetchUserDynamic" "fetchUserStatic" \
-#	"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "fetchGroupStatic" "updateGroupPutDynamic" "updateGroupPutStatic" \
-#	"updateGroupPatchDynamic" "updateGroupPatchStatic" )
-
-threadGroups=( "listScopes" "listDevices" )
+threadGroups=( "createMarkings" "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" "deleteMarkings" )
 
 for threadGroup in "${threadGroups[@]}"
 do
