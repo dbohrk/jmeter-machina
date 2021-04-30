@@ -14,25 +14,29 @@ jmeterSeconds=1800
 #	"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "fetchGroupStatic" "updateGroupPutDynamic" "updateGroupPutStatic" \
 #	"updateGroupPatchDynamic" "updateGroupPatchStatic" )
 
-threadGroups=( "listScopes" "listDevices" )
+threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "addUsers" "listUsers" "deleteUsers" "fetchUserDynamic" \
+	"listRoles" "fetchRoleDynamic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "updateGroupPutDynamic" \
+	"updateGroupPatchDynamic" )
+
+# threadGroups=( "listScopes" "listDevices" )
 
 for threadGroup in "${threadGroups[@]}"
 do
-	echo '***** Thread Group: '$threadGroup' without parallel load*****'
+	echo '***** Thread Group: '$testPlan':'$threadGroup' without parallel load*****'
 
 	rm $dataDirectory/$threadGroup.csv
-	rm -rf $reportsDirectory/$threadGroup/*
+	rm -rf $reportsDirectory/$threadGroup
 	jmeter -n -t $testPlanDirectory/$testPlan.jmx -l $dataDirectory/$threadGroup.csv -J$threadGroup"Users"=$jmeterUsers -Jrampup=$jmeterRampup -Jseconds=$jmeterSeconds
 	jmeter -g $dataDirectory/$threadGroup.csv -o $reportsDirectory/$threadGroup
 
 
-        echo '***** Thread Group: '$threadGroup' with '$parallelThreadGroup' load *****'
+        echo '***** Thread Group: '$testPlan':'$threadGroup' with '$parallelThreadGroup' load *****'
 
         rm $dataDirectory/$threadGroup-with-$parallelThreadGroup.csv
-        rm -rf $reportsDirectory/$threadGroup-with-$parallelThreadGroup/*
+        rm -rf $reportsDirectory/$threadGroup-with-$parallelThreadGroup
 
         rm $dataDirectory/$parallelThreadGroup-with-$threadGroup.csv
-        rm -rf $reportsDirectory/$parallelThreadGroup-with-$threadGroup/*
+        rm -rf $reportsDirectory/$parallelThreadGroup-with-$threadGroup
 
         jmeter -n -t $testPlanDirectory/$testPlan.jmx -l $dataDirectory/$threadGroup-with-$parallelThreadGroup.csv -J$threadGroup"Users"=$jmeterUsers -Jrampup=$jmeterRampup -Jseconds=$jmeterSeconds&
 
