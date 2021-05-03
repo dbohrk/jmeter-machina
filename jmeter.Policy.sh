@@ -2,7 +2,7 @@ baseDirectory="./"
 reportsDirectory="reports"
 dataDirectory="data"
 testPlanDirectory="jmx"
-testPlan="DataMarkings"
+testPlan="Policy"
 parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
@@ -10,10 +10,7 @@ jmeterUsers=20
 jmaterRampup=5
 jmeterSeconds=1800
 
-#threadGroups=( "createMarkings" "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" "deleteMarkings" ) # Full set of Thread Groups
-#threadGroups=( "createMarkings" "listMarkings" ) # Create / Delete
-threadGroups=( "listMarkings" ) # Create / Delete
-#threadGroups=( "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" ) # Does not change number of Markings
+threadGroups=( "addPolicies" "updatePoliciesDynamic" "listPolicies" "fetchPolicyDynamic" "deletePolicies" )
 
 for threadGroup in "${threadGroups[@]}"
 do
