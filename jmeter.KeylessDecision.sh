@@ -10,7 +10,7 @@ jmeterUsers=20
 jmaterRampup=5
 jmeterSeconds=1800
 
-#threadGroups=( "keylessDecision" )
+threadGroups=( "keylessDecision" )
 
 for threadGroup in "${threadGroups[@]}"
 do
