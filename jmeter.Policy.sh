@@ -10,7 +10,9 @@ jmeterUsers=20
 jmaterRampup=5
 jmeterSeconds=1800
 
-threadGroups=( "addPolicies" "updatePoliciesDynamic" "listPolicies" "fetchPolicyDynamic" "deletePolicies" )
+#threadGroups=( "addPolicies" "updatePoliciesDynamic" "listPolicies" "fetchPolicyStatic" "fetchPolicyDynamic" "deletePolicies" )
+#threadGroups=( "updatePolicyCreatorStatic" "updatePolicyObligationsStatic" )
+threadGroups=( "fetchPolicyStatic" "fetchPolicyDynamic" )
 
 for threadGroup in "${threadGroups[@]}"
 do
