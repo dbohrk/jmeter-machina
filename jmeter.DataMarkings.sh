@@ -12,7 +12,8 @@ jmeterSeconds=1800
 
 #threadGroups=( "createMarkings" "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" "deleteMarkings" ) # Full set of Thread Groups
 #threadGroups=( "createMarkings" "listMarkings" ) # Create / Delete
-threadGroups=( "listMarkings" ) # Create / Delete
+#threadGroups=( "listMarkings" )
+threadGroups=( "createDeleteMarkings" )
 #threadGroups=( "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" ) # Does not change number of Markings
 
 for threadGroup in "${threadGroups[@]}"

@@ -239,10 +239,10 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(addDeletePoliciesUsers,20)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(addDeletePoliciesUsers,0)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(rampup,0)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(seconds,360)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(seconds,0)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
