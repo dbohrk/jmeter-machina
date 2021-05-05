@@ -7,12 +7,13 @@ parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
 jmeterUsers=20
-jmaterRampup=5
-jmeterSeconds=1800
+jmaterRampup=0
+jmeterSeconds=300
 
 #threadGroups=( "addPolicies" "updatePoliciesDynamic" "listPolicies" "fetchPolicyStatic" "fetchPolicyDynamic" "deletePolicies" )
 #threadGroups=( "updatePolicyCreatorStatic" "updatePolicyObligationsStatic" )
-threadGroups=( "fetchPolicyStatic" "fetchPolicyDynamic" )
+#threadGroups=( "fetchPolicyStatic" "fetchPolicyDynamic" )
+threadGroups=( "addDeletePolicies" )
 
 for threadGroup in "${threadGroups[@]}"
 do
