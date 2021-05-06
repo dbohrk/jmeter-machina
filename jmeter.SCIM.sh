@@ -14,11 +14,13 @@ jmeterSeconds=1800
 #	"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "fetchGroupStatic" "updateGroupPutDynamic" "updateGroupPutStatic" \
 #	"updateGroupPatchDynamic" "updateGroupPatchStatic" )
 
-threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "addUsers" "listUsers" "deleteUsers" "fetchUserDynamic" \
-	"listRoles" "fetchRoleDynamic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "updateGroupPutDynamic" \
-	"updateGroupPatchDynamic" )
+#threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "addUsers" "listUsers" "deleteUsers" "fetchUserDynamic" \
+#	"listRoles" "fetchRoleDynamic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "updateGroupPutDynamic" \
+#	"updateGroupPatchDynamic" )
 
 # threadGroups=( "listScopes" "listDevices" )
+#threadGroups=( "addDeleteUsers" )
+threadGroups=( "createDeleteGroups" )
 
 for threadGroup in "${threadGroups[@]}"
 do
