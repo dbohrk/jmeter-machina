@@ -3,30 +3,77 @@ reportsDirectory="reports"
 dataDirectory="data"
 testPlanDirectory="jmx"
 testPlan="DataMarkings"
+parallelTestExecution=false
+parallelTestOnly=false
 parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
-jmeterUsers=20
-jmaterRampup=5
-jmeterSeconds=1800
 
-#threadGroups=( "createMarkings" "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" "deleteMarkings" ) # Full set of Thread Groups
-#threadGroups=( "createMarkings" "listMarkings" ) # Create / Delete
-#threadGroups=( "listMarkings" )
-threadGroups=( "createDeleteMarkings" )
-#threadGroups=( "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" ) # Does not change number of Markings
+threadGroups=( "createMarkings" "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" "deleteMarkings" )
 
-for threadGroup in "${threadGroups[@]}"
+jmeterUsers=0
+jmeterRampup=0
+jmeterSeconds=0
+
+
+function usage
+{
+	echo ""
+	echo "$(basename -s '.sh' "$0") usage:"
+	echo ""
+	echo "-u <number of users>. Default number of users is $jmeterUsers."
+	echo "-s <runtime in seconds>. Default runtime is $jmeterSeconds seconds."
+	echo "-r <ramp-up time in seconds>. Default ramp-up time is $jmeterRampup seconds."
+	echo "-t <thread group name>. Required. Thread Groups available:"
+	echo "-p Execute second run of Thread Group with $parallelThreadGroup in $parellelTestPlan"
+	echo "-P Only exexute run of Thread Group with $parallelThreadGroup in $parellelTestPlan"
+	printf '\t- %s\n' "${threadGroups[@]}"
+	exit 1
+}
+
+while getopts :u:s:r:t:p:P:h option
 do
-	echo '***** Thread Group: '$testPlan':'$threadGroup' without parallel load *****'
+	case "${option}"
+		in
+		u) jmeterUsers=${OPTARG};; 
+		s) jmeterSeconds=${OPTARG};;	
+		r) jmeterRampup=${OPTARG};;
+		t) threadGroup=${OPTARG};[[ ${threadGroups[*]} =~ ${threadGroup} ]] || usage 1>&2;;	
+		p) parallelTestExecution=true;;
+		P) parallelTestOnly=true;;
+		h) usage 1>&2;;									# display uasge (help)
+		:) printf "Missing argument for -%s\n" "$OPTARG">&2; usage;;
+		\?) printf "Invalid option -%s\n" "$OPTARG">&2; usage;;
+		\*) usage 1>&2;;
+	esac
+done
+
+# If no Thread Group is specified, print usage and exit
+if [ -z "$threadGroup" ]
+then
+	echo "A Thread Group is required"
+	usage 1>&2
+fi
+
+if [ !$parallelTestOnly ]
+then 
+	echo "***** Thread Group: $testPlan:$threadGroup without parallel load"
+	echo "***** Users/Threads = $jmeterUsers users"
+	echo "***** Ramp-up = $jmeterRampup seconds"
+	echo "***** Run time = $jmeterSeconds seconds"
 
 	rm $dataDirectory/$threadGroup.csv
 	rm -rf $reportsDirectory/$threadGroup
 	jmeter -n -t $testPlanDirectory/$testPlan.jmx -l $dataDirectory/$threadGroup.csv -J$threadGroup"Users"=$jmeterUsers -Jrampup=$jmeterRampup -Jseconds=$jmeterSeconds
 	jmeter -g $dataDirectory/$threadGroup.csv -o $reportsDirectory/$threadGroup
 
-
-        echo '***** Thread Group: '$testPlan':'$threadGroup' with '$parallelThreadGroup' load *****'
+fi
+if [ $parallelTestExecution ] || [ $parallelTestOnly ]
+then
+        echo "***** Thread Group: $testPlan:$threadGroup with parellel $parallelThreadGroup load"
+	echo "***** Users/Threads = $jmeterUsers users"
+	echo "***** Ramp-up = $jmeterRampup seconds"
+	echo "***** Run time = $jmeterSeconds seconds"
 
         rm $dataDirectory/$threadGroup-with-$parallelThreadGroup.csv
         rm -rf $reportsDirectory/$threadGroup-with-$parallelThreadGroup
@@ -46,5 +93,5 @@ do
 
         jmeter -g $dataDirectory/$threadGroup-with-$parallelThreadGroup.csv -o $reportsDirectory/$threadGroup-with-$parallelThreadGroup
         jmeter -g $dataDirectory/$parallelThreadGroup-with-$threadGroup.csv -o $reportsDirectory/$parallelThreadGroup-with-$threadGroup
-done
+fi
 
