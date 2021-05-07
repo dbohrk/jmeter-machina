@@ -2,13 +2,14 @@ baseDirectory="./"
 reportsDirectory="reports"
 dataDirectory="data"
 testPlanDirectory="jmx"
-testPlan="KeylessDecision"
+testPlan="Policy"
 parallelTestExecution=false
 parallelTestOnly=false
 parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
-threadGroups=( "keylessDecision" )
+threadGroups=( "addPolicies" "updatePoliciesDynamic" "listPolicies" "fetchPolicyStatic" "fetchPolicyDynamic" "deletePolicies" "addDeletePolicies" \
+	"updatePolicyCreatorStatic" "updatePolicyObligationsStatic")
 
 jmeterUsers=0
 jmeterRampup=0
