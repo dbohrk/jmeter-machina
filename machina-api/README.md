@@ -3,7 +3,7 @@ Machina API performance tests are designed using JMeter for flexibility and low 
 ## Installaton
 
  - [Download and Install JMeter from Apache.org](https://jmeter.apache.org/download_jmeter)
- - [Clone Machina-API](https://stash.in.ionicsecurity.com/scm/qa/performance.git) in the QA/Performance Stash directory
+ - [Download or Clone Machina-API](https://stash.in.ionicsecurity.com/projects/QA/repos/performance/browse/machina-api) in the QA/Performance Stash directory
 
 The Machina-API directory needs to be in this structure:
 
