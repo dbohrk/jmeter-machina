@@ -9,9 +9,10 @@ parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
 
-threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "fetchDeviceStatic" "addUsersInGroup" "addUsers" "listUsers" "deleteUsers" "fetchUserDynamic" "fetchUserStatic" \
-	"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "fetchGroupStatic" "updateGroupPutDynamic" "updateGroupPutStatic" \
-	"updateGroupPatchDynamic" "updateGroupPatchStatic" )
+threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "fetchDeviceStatic" "addUsersInGroup" "addUsers" \
+	"listUsers" "listUsersExternalId" "listUsersExternalIdStartsWith" "listUsersExternalIdContains" "deleteUsers" "fetchUserDynamic" "fetchUserStatic" \
+	"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "fetchGroupStatic" \
+	"updateGroupPutDynamic" "updateGroupPutStatic" "updateGroupPatchDynamic" "updateGroupPatchStatic" )
 
 jmeterUsers=0
 jmeterRampup=0
@@ -27,13 +28,13 @@ function usage
 	echo "-s <runtime in seconds>. Default runtime is $jmeterSeconds seconds."
 	echo "-r <ramp-up time in seconds>. Default ramp-up time is $jmeterRampup seconds."
 	echo "-t <thread group name>. Required. Thread Groups available:"
-	echo "-p Execute second run of Thread Group with $parallelThreadGroup in $parellelTestPlan"
-	echo "-P Only exexute run of Thread Group with $parallelThreadGroup in $parellelTestPlan"
+	echo "-p Execute second run of Thread Group with $parallelThreadGroup in $parallelTestPlan"
+	echo "-P Only exexute run of Thread Group with $parallelThreadGroup in $parallelTestPlan"
 	printf '\t- %s\n' "${threadGroups[@]}"
 	exit 1
 }
 
-while getopts :u:s:r:t:p:P:h option
+while getopts :u:s:r:t:pPh option
 do
 	case "${option}"
 		in
@@ -57,7 +58,7 @@ then
 	usage 1>&2
 fi
 
-if [ !$parallelTestOnly ]
+if [ $parallelTestOnly == false ]
 then 
 	echo "***** Thread Group: $testPlan:$threadGroup without parallel load"
 	echo "***** Users/Threads = $jmeterUsers users"
@@ -70,7 +71,8 @@ then
 	jmeter -g $dataDirectory/$threadGroup.csv -o $reportsDirectory/$threadGroup
 
 fi
-if [ $parallelTestExecution ] || [ $parallelTestOnly ]
+
+if [ $parallelTestExecution == true ] || [ $parallelTestOnly == true ]
 then
         echo "***** Thread Group: $testPlan:$threadGroup with parellel $parallelThreadGroup load"
 	echo "***** Users/Threads = $jmeterUsers users"

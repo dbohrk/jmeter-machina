@@ -25,13 +25,13 @@ function usage
 	echo "-s <runtime in seconds>. Default runtime is $jmeterSeconds seconds."
 	echo "-r <ramp-up time in seconds>. Default ramp-up time is $jmeterRampup seconds."
 	echo "-t <thread group name>. Required. Thread Groups available:"
-	echo "-p Execute second run of Thread Group with $parallelThreadGroup in $parellelTestPlan"
-	echo "-P Only exexute run of Thread Group with $parallelThreadGroup in $parellelTestPlan"
+	echo "-p Execute second run of Thread Group with $parallelThreadGroup in $parallelTestPlan"
+	echo "-P Only exexute run of Thread Group with $parallelThreadGroup in $parallelTestPlan"
 	printf '\t- %s\n' "${threadGroups[@]}"
 	exit 1
 }
 
-while getopts :u:s:r:t:p:P:h option
+while getopts :u:s:r:t:pPh option
 do
 	case "${option}"
 		in
@@ -55,7 +55,7 @@ then
 	usage 1>&2
 fi
 
-if [ !$parallelTestOnly ]
+if [ $parallelTestOnly == false ]
 then 
 	echo "***** Thread Group: $testPlan:$threadGroup without parallel load"
 	echo "***** Users/Threads = $jmeterUsers users"
@@ -68,7 +68,8 @@ then
 	jmeter -g $dataDirectory/$threadGroup.csv -o $reportsDirectory/$threadGroup
 
 fi
-if [ $parallelTestExecution ] || [ $parallelTestOnly ]
+
+if [ $parallelTestExecution == true ] || [ $parallelTestOnly == true ]
 then
         echo "***** Thread Group: $testPlan:$threadGroup with parellel $parallelThreadGroup load"
 	echo "***** Users/Threads = $jmeterUsers users"
