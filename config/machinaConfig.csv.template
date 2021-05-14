@@ -1,2 +1,1 @@
-﻿serverName,keySpace,bearerToken,tenantID,groupID,deviceID,userID,roleID,markingID,policyID
-,,Bearer ,,,,,,,
+﻿serverName,tenantID,keySpace,bearerToken,groupID,deviceID,userID,roleID,markingID,keyID,externalID
