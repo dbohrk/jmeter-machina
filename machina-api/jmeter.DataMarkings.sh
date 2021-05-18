@@ -8,7 +8,7 @@ parallelTestOnly=false
 parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
-threadGroups=( "createMarkings" "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" "deleteMarkings" )
+threadGroups=( "createMarkings" "updateMarking" "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" "deleteMarkings" )
 
 jmeterUsers=0
 jmeterRampup=0
