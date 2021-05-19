@@ -1,4 +1,4 @@
-baseDirectory="."
+baseDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 reportsDirectory="reports"
 dataDirectory="data"
 testPlanDirectory="jmx"
