@@ -1,4 +1,4 @@
-baseDirectory="./"
+baseDirectory="."
 reportsDirectory="reports"
 dataDirectory="data"
 testPlanDirectory="jmx"

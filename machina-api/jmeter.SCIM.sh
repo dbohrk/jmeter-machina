@@ -1,4 +1,4 @@
-baseDirectory="./"
+baseDirectory="."
 reportsDirectory="reports"
 dataDirectory="data"
 testPlanDirectory="jmx"
@@ -11,7 +11,7 @@ parallelThreadGroup="keylessDecision"
 
 threadGroups=( "listScopes" "listDevices" "fetchDeviceDynamic" "fetchDeviceStatic" "addUsersInGroup" "addUsers" \
 	"listUsers" "listUsersExternalId" "listUsersExternalIdStartsWith" "listUsersExternalIdContains" "deleteUsers" "fetchUserDynamic" "fetchUserStatic" \
-	"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "fetchGroupDynamic" "fetchGroupStatic" \
+	"listRoles" "fetchRoleDynamic" "fetchRoleStatic" "createGroups" "listGroups" "deleteGroups" "createDeleteGroups" "fetchGroupDynamic" "fetchGroupStatic" \
 	"updateGroupPutDynamic" "updateGroupPutStatic" "updateGroupPatchDynamic" "updateGroupPatchStatic" )
 
 jmeterUsers=0
