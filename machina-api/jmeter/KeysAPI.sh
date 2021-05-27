@@ -9,7 +9,7 @@ parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
 
-threadGroups=( "keyCreate" "keyFetch" "KeyCreateFetch" "keyCreateExternalID" "keyFetchExternalID" )
+threadGroups=( "keyCreate" "keyFetch" "keyCreateFetch" "keyCreateExternalID" "keyFetchExternalID" "kns" )
 
 jmeterUsers=0
 jmeterRampup=0
