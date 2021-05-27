@@ -34,7 +34,7 @@ function usage
 	exit 1
 }
 
-while getopts :u:s:r:t:pPh option
+while getopts :u:s:r:t:T:pPh option
 do
 	case "${option}"
 		in
@@ -42,6 +42,7 @@ do
 		s) jmeterSeconds=${OPTARG};;	
 		r) jmeterRampup=${OPTARG};;
 		t) threadGroup=${OPTARG};[[ ${threadGroups[*]} =~ ${threadGroup} ]] || usage 1>&2;;	
+		T) threadGroup=${OPTARG};;							# Thread Group without checking validity
 		p) parallelTestExecution=true;;
 		P) parallelTestOnly=true;;
 		h) usage 1>&2;;									# display uasge (help)
