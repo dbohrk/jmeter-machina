@@ -1,8 +1,8 @@
 basDirectory="$(pwd)"
 testPlan="SCIM"
 jDirectory="jmeter"
-parallelTestExecution=0
-parallelTestOnly=0
+parallelTestExecution=false
+parallelTestOnly=false
 
 jmeterUsers=0
 jmeterRampup=0
@@ -35,8 +35,8 @@ do
 		u) jmeterUsers=${OPTARG};; 
 		s) jmeterSeconds=${OPTARG};;	
 		r) jmeterRampup=${OPTARG};;
-		p) parallelTestExecution=1;;
-		P) parallelTestOnly=1;;
+		p) parallelTestExecution=true;;
+		P) parallelTestOnly=true;;
 		h) usage 1>&2;;									# display uasge (help)
 		:) printf "Missing argument for -%s\n" "$OPTARG">&2; usage;;
 		\?) printf "Invalid option -%s\n" "$OPTARG">&2; usage;;
