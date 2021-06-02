@@ -71,8 +71,8 @@ then
 	echo "***** Ramp-up = $jmeterRampup seconds"
 	echo "***** Run time = $jmeterSeconds seconds"
 
-	rm $dataDirectory/$threadGroup-$machinaVersion.csv
-	rm -rf $reportsDirectory/$threadGroup-$machinaVersion
+	rm $dataDirectory/$threadGroup-$machinaVersion.csv 2> /dev/null
+	rm -rf $reportsDirectory/$threadGroup-$machinaVersion 2> /dev/null
 	jmeter -n -t $testPlanDirectory/$testPlan.jmx -l $dataDirectory/$threadGroup-$machinaVersion.csv -J$threadGroup"Users"=$jmeterUsers -Jrampup=$jmeterRampup -Jseconds=$jmeterSeconds
 	jmeter -g $dataDirectory/$threadGroup-$machinaVersion.csv -o $reportsDirectory/$threadGroup-$machinaVersion
 
@@ -85,11 +85,11 @@ then
 	echo "***** Ramp-up = $jmeterRampup seconds"
 	echo "***** Run time = $jmeterSeconds seconds"
 
-        rm $dataDirectory/$threadGroup-with-$parallelThreadGroup-$machinaVersion.csv
-        rm -rf $reportsDirectory/$threadGroup-with-$parallelThreadGroup-$machinaVersion
+        rm $dataDirectory/$threadGroup-with-$parallelThreadGroup-$machinaVersion.csv 2> /dev/null
+        rm -rf $reportsDirectory/$threadGroup-with-$parallelThreadGroup-$machinaVersion 2> /dev/null
 
-        rm $dataDirectory/$parallelThreadGroup-with-$threadGroup-$machinaVersion.csv
-        rm -rf $reportsDirectory/$parallelThreadGroup-with-$threadGroup-$machinaVersion
+        rm $dataDirectory/$parallelThreadGroup-with-$threadGroup-$machinaVersion.csv 2> /dev/null
+        rm -rf $reportsDirectory/$parallelThreadGroup-with-$threadGroup-$machinaVersion 2> /dev/null
 
         jmeter -n -t $testPlanDirectory/$testPlan.jmx -l $dataDirectory/$threadGroup-with-$parallelThreadGroup-$machinaVersion.csv -J$threadGroup"Users"=$jmeterUsers -Jrampup=$jmeterRampup -Jseconds=$jmeterSeconds&
 
