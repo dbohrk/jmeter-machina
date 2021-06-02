@@ -1,11 +1,12 @@
 basDirectory="$(pwd)"
+testPlan="SCIM"
 jDirectory="jmeter"
-tPlan="SCIM"
-parallelExecution=""
+parallelTestExecution=0
+parallelTestOnly=0
 
-jUsers=0
-jRampup=0
-jSeconds=0
+jmeterUsers=0
+jmeterRampup=0
+jmeterSeconds=0
 
 
 tGroups=( "listScopes" "listDevices" "listUsers" "listRoles" "listGroups" "addDeleteUsers" "createDeleteGroups" \
@@ -42,11 +43,11 @@ while getopts :u:s:r:t:pPh option
 do
 	case "${option}"
 		in
-		u) jUsers=${OPTARG};; 
-		s) jSeconds=${OPTARG};;	
-		r) jRampup=${OPTARG};;
-		p) parallelExecution="-p";;
-		P) parallelExecution="-P";;
+		u) jmeterUsers=${OPTARG};; 
+		s) jmeterSeconds=${OPTARG};;	
+		r) jmeterRampup=${OPTARG};;
+		p) parallelTestExecution=1;;
+		P) parallelTestOnly=1;;
 		h) usage 1>&2;;									# display uasge (help)
 		:) printf "Missing argument for -%s\n" "$OPTARG">&2; usage;;
 		\?) printf "Invalid option -%s\n" "$OPTARG">&2; usage;;
@@ -54,7 +55,14 @@ do
 	esac
 done
 
-for tGroup in "${tGroups[@]}"
+for threadGroup in "${tGroups[@]}"
 do
-	source $basDirectory/$jDirectory/$tPlan.sh $parallelExecution -u $jUsers -s $jSeconds -r $jRampup -t \"$tGroup\";
+echo "*****"
+echo "*****$threadGroup*****"
+echo "*****"
+echo "Users $jmeterUsers"
+echo "Seconds $jmeterSeconds"
+echo "Rampup $jmeterRampup"
+echo "Parallel Execution $parallelExecution"
+	source $basDirectory/$jDirectory/api-jmeter.sh
 done
