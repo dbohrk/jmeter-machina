@@ -8,8 +8,8 @@ reportsDirectory="reports"
 dataDirectory="data"
 testPlanDirectory="jmx"
 # testPlan="SCIM"
-parallelTestExecution=false
-parallelTestOnly=false
+# parallelTestExecution=false
+# parallelTestOnly=false
 parallelTestPlan="KeylessDecision"
 parallelThreadGroup="keylessDecision"
 
