@@ -9,7 +9,7 @@ jmeterRampup=0
 jmeterSeconds=0
 
 # JMeter Thread Groups that do not change the number of Policies. And require identification strings in the configuration file
-tGroups=( "fetchPolicyStatic" "fetchPolicyDynamic" "deletePolicies" "updatePolicyCreatorStatic" "updatePolicyObligationsStatic")
+tGroups=( "fetchPolicyStatic" "fetchPolicyDynamic" "updatePolicyCreatorStatic" "updatePolicyObligationsStatic")
 
 function usage
 {
