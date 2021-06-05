@@ -1,5 +1,5 @@
 basDirectory="$(pwd)"
-testPlan="SCIM"
+testPlan="KeylessDecision"
 jDirectory="jmeter"
 parallelTestExecution=false
 parallelTestOnly=false
@@ -8,9 +8,8 @@ jmeterUsers=0
 jmeterRampup=0
 jmeterSeconds=0
 
-# JMeter Thread Groups that do not change the number of users, groups, etc… And do not require identification strings in the configuration file
-tGroups=( "listScopes" "listDevices" "listUsers" "listRoles" "listGroups" "addDeleteUsers" "createDeleteGroups" \
-	"fetchDeviceDynamic" "fetchUserDynamic" "fetchGroupDynamic" "updateGroupPutDynamic" "updateGroupPatchDynamic" )
+# JMeter Thread Groups that do not change the number of Policies. And do not require identification strings in the configuration file
+tGroups=( "keylessDecision" )
 
 function usage
 {

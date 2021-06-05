@@ -1,5 +1,5 @@
 basDirectory="$(pwd)"
-testPlan="SCIM"
+testPlan="DataMarkings"
 jDirectory="jmeter"
 parallelTestExecution=false
 parallelTestOnly=false
@@ -8,9 +8,8 @@ jmeterUsers=0
 jmeterRampup=0
 jmeterSeconds=0
 
-# JMeter Thread Groups that do not change the number of users, groups, etc… And do not require identification strings in the configuration file
-tGroups=( "listScopes" "listDevices" "listUsers" "listRoles" "listGroups" "addDeleteUsers" "createDeleteGroups" \
-	"fetchDeviceDynamic" "fetchUserDynamic" "fetchGroupDynamic" "updateGroupPutDynamic" "updateGroupPatchDynamic" )
+# JMeter Thread Groups that do not change the number of Markings. And do not require identification strings in the configuration file
+tGroups=( "updateMarking" "listMarkings" "fetchMarkingDynamic" "fetchMarkingStatic" )
 
 function usage
 {
